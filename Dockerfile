@@ -1,17 +1,14 @@
-# Step 1: Use official Nginx image from the Docker Hub
+# Step 1: Use official Nginx image from Docker Hub
 FROM nginx:alpine
 
-# Step 2: Set the working directory in the container
+# Step 2: Set working directory
 WORKDIR /usr/share/nginx/html
 
-# Step 3: Copy all your application files (HTML, CSS, JS) into the Nginx directory
+# Step 3: Copy application files
 COPY . .
 
-# Step 4: Expose port 9000 (though Nginx defaults to port 80, we'll use 9000 as requested)
+# Step 4: Expose port 8080
 EXPOSE 8080
 
-# Step 5: Change Nginx default configuration to listen on port 9000 (optional)
-RUN sed -i 's/80/8080/' /etc/nginx/conf.d/default.conf
-
-
-# Nginx will automatically serve the files from /usr/share/nginx/html directory
+# Step 5: Update Nginx to listen on port 8080
+RUN sed -i 's/listen 80;/listen 8080;/' /etc/nginx/conf.d/default.conf
